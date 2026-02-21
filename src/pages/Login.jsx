@@ -29,15 +29,50 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-container">
+    <div
+      className="auth-container"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        width: "100vw",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        background: "#f5f6fa",
+        zIndex: 1,
+      }}
+    >
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <form
+        onSubmit={handleLogin}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "300px",
+          gap: "16px",
+          background: "#fff",
+          padding: "32px",
+          borderRadius: "8px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
+        }}
+      >
         <input
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          style={{
+            width: "100%",
+            marginBottom: "8px",
+            padding: "10px",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
         />
         <input
           type="password"
@@ -45,9 +80,34 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          style={{
+            width: "100%",
+            marginBottom: "8px",
+            padding: "10px",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
         />
-        <button type="submit">Login</button>
-        {error && <div className="error">{error}</div>}
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "10px",
+            borderRadius: "4px",
+            background: "#1677FF",
+            color: "#fff",
+            fontWeight: "bold",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Login
+        </button>
+        {error && (
+          <div className="error" style={{ color: "red", marginTop: "8px" }}>
+            {error}
+          </div>
+        )}
       </form>
     </div>
   );

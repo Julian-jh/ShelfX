@@ -208,17 +208,19 @@ function App() {
             )}
           </nav>
         </header>
-        <div style={{ marginTop: "120px" }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/books" element={<BookList />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
-          </Routes>
+        <div style={{ marginTop: "120px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "70vh" }}>
+          <main style={{ width: "100%", maxWidth: "900px" }}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/books" element={<BookList />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
+            </Routes>
+          </main>
         </div>
       </div>
     </BrowserRouter>
