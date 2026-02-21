@@ -1,3 +1,15 @@
+# Running ShelfX Locally
+
+To run both frontend and backend together:
+
+1. Install dependencies:
+	- In the root folder: `npm install`
+	- In the server folder: `cd server && npm install`
+
+2. Start both servers with one command:
+	- In the root folder: `npm run dev`
+
+This will launch the React frontend and Express backend concurrently.
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
