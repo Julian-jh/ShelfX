@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import BookList from "./pages/BookList.jsx";
@@ -7,48 +8,53 @@ import Profile from "./pages/Profile.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Logout from "./pages/Logout.jsx";
-
-import React, { useEffect, useState } from "react";
-// ...existing code...
-
 function App() {
-  const [user, setUser] = useState(null);
+  const getUsernameFromToken = useCallback(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        return payload.username;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  }, []);
+  const [user, setUser] = useState(getUsernameFromToken());
 
   useEffect(() => {
-    const checkUser = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const payload = JSON.parse(atob(token.split(".")[1]));
-          setUser(payload.username);
-        } catch {
-          setUser(null);
-        }
-      } else {
-        setUser(null);
-      }
+    const handleStorage = () => {
+      setUser(getUsernameFromToken());
     };
-    checkUser();
-    window.addEventListener("storage", checkUser);
-    return () => window.removeEventListener("storage", checkUser);
-  }, []);
+    window.addEventListener("storage", handleStorage);
+    // Also check on mount
+    handleStorage();
+    // Listen for route changes
+    const observer = new MutationObserver(() => {
+      setUser(getUsernameFromToken());
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      observer.disconnect();
+    };
+  }, [getUsernameFromToken]);
 
   return (
     <BrowserRouter>
       <div>
         <header
           style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            zIndex: 100,
-            display: "flex",
-            alignItems: "center",
             background: "linear-gradient(90deg, #1677FF 0%, #52C41A 100%)",
             color: "white",
             padding: "16px 32px",
             boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            zIndex: 1000,
           }}
         >
           <span
@@ -145,31 +151,64 @@ function App() {
                 </Link>
               </>
             ) : (
-              <>
-                <span
+              <div style={{ display: "inline-block", position: "relative" }}>
+                <button
+                  type="button"
                   style={{
+                    background: "none",
+                    border: "none",
                     color: "white",
+                    fontWeight: "bold",
                     marginRight: "16px",
-                    fontWeight: "bold",
+                    cursor: "pointer",
+                    fontSize: "1.1rem",
+                  }}
+                  onClick={() => {
+                    const menu = document.getElementById("user-menu");
+                    if (menu)
+                      menu.style.display =
+                        menu.style.display === "block" ? "none" : "block";
                   }}
                 >
-                  Hello, {user}
-                </span>
-                <Link
-                  to="/logout"
+                  {user}
+                </button>
+                <div
+                  id="user-menu"
                   style={{
-                    color: "white",
-                    textDecoration: "none",
-                    fontWeight: "bold",
+                    display: "none",
+                    position: "absolute",
+                    right: 0,
+                    top: "100%",
+                    background: "white",
+                    color: "#1677FF",
+                    borderRadius: "4px",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                    minWidth: "120px",
+                    zIndex: 1001,
                   }}
                 >
-                  Logout
-                </Link>
-              </>
+                  <Link
+                    to="/logout"
+                    style={{
+                      display: "block",
+                      padding: "8px 16px",
+                      color: "#1677FF",
+                      textDecoration: "none",
+                      fontWeight: "bold",
+                    }}
+                    onClick={() => {
+                      document.getElementById("user-menu").style.display =
+                        "none";
+                    }}
+                  >
+                    Logout
+                  </Link>
+                </div>
+              </div>
             )}
           </nav>
         </header>
-        <div style={{ marginTop: "80px" }}>
+        <div style={{ marginTop: "120px" }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/books" element={<BookList />} />
