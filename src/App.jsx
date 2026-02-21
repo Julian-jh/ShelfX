@@ -4,6 +4,9 @@ import BookList from './pages/BookList.jsx';
 import Cart from './pages/Cart.jsx';
 import Checkout from './pages/Checkout.jsx';
 import Profile from './pages/Profile.jsx';
+import Register from './pages/Register.jsx';
+import Login from './pages/Login.jsx';
+import Logout from './pages/Logout.jsx';
 
 function App() {
 	return (
@@ -35,7 +38,10 @@ function App() {
 								<Link to="/books" style={{ color: 'white', marginRight: '16px', textDecoration: 'none', fontWeight: 'bold' }}>Books</Link>
 								<Link to="/cart" style={{ color: 'white', marginRight: '16px', textDecoration: 'none', fontWeight: 'bold' }}>Cart</Link>
 								<Link to="/checkout" style={{ color: 'white', marginRight: '16px', textDecoration: 'none', fontWeight: 'bold' }}>Checkout</Link>
-								<Link to="/profile" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}>Profile</Link>
+								<Link to="/profile" style={{ color: 'white', marginRight: '16px', textDecoration: 'none', fontWeight: 'bold' }}>Profile</Link>
+								<Link to="/register" style={{ color: 'white', marginRight: '16px', textDecoration: 'none', fontWeight: 'bold' }}>Register</Link>
+								<Link to="/login" style={{ color: 'white', marginRight: '16px', textDecoration: 'none', fontWeight: 'bold' }}>Login</Link>
+								<Link to="/logout" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}>Logout</Link>
 							</nav>
 						</header>
 								<div style={{ marginTop: '80px' }}>
@@ -45,6 +51,9 @@ function App() {
 										<Route path="/cart" element={<Cart />} />
 										<Route path="/checkout" element={<Checkout />} />
 										<Route path="/profile" element={<Profile />} />
+										<Route path="/register" element={<Register />} />
+										<Route path="/login" element={<Login />} />
+										<Route path="/logout" element={<Logout />} />
 									</Routes>
 								</div>
 					</div>
