@@ -1,0 +1,5 @@
+ShelfX: Full-Stack Online Bookstore with Email Receipts                        02/2024 to 02/2026
+- Built a full-stack online bookstore using React (frontend) and Node.js + Express (backend), supporting user authentication, cart management, and secure checkout workflows
+- Implemented JWT-based authentication and RESTful APIs for registration, login, and transactional checkout, with automated email receipts via nodemailer
+- Designed context-driven cart and checkout logic using React Context API, enabling real-time cart updates and persistent user sessions
+- Deployed modular application structure for easy extensibility and cloud deployment. Optimized backend reliability for high-concurrency order processing and capable of handling 10,000 requests per second.
